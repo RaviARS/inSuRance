@@ -21,7 +21,7 @@
 
 - Step 4: To view Django API GUI type below url to your browser
 
-       http://127.0.0.1:8000/api/v1/climate/
+       http://127.0.0.1:8000/
        
   - Note :
     - 
