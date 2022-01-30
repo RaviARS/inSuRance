@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+<div><br>
+
+     <div class="row">
+        <div class="col-sm-2">
+             <h3>Policy Bar Chart</h3>
+        </div>
+
+        <div class="col-sm-1">
+
+            <button type="button"  id="show_chart" class="btn btn-outline-dark  btn-sm">Show</button>
+        </div>
+        <div class="col-sm-1">
+
+        </div>
+        <div class="col-sm-5">
+
+        </div>
+     </div>
+
+</div>
+
+
+<canvas id="myChart" style="width:100%;max-width:800px"></canvas>
+
+<script>
+
+
+$(document).ready(function(){
+
+    $('#show_chart').click(function() {
+        var api_url = "http://127.0.0.1:8000/api/v1/policy/chart/"
+        $.ajax({
+            url: api_url,
+            dataType: "json",
+            success: function(data) {
+                console.log(data);
+                get_x_y_value(data)
+            }
+        });
+    });
+
+     function get_x_y_value(res_data) {
+        console.log(res_data);
+        var xValues = res_data["x_axis"]
+        var yValues = res_data["y_axis"]
+        var barColors = ["#9400D3", "#DAA520","#2E8B57","#DB7093","#191970", "#FF4500","#6e7708", "#9efc92", "#f2a9aa",
+        "#adadad", "#de8df4", "#bdef1a"];
+
+        new Chart("myChart", {
+          type: "bar",
+          data: {
+            labels: xValues,
+            datasets: [{
+              backgroundColor: barColors,
+              data: yValues
+            }]
+          },
+          options: {
+            legend: {display: false},
+            title: {
+              display: true,
+              text: "Policy-2018"
+            }
+          }
+        });
+
+   }
+
+});
+</script>
+
+
+{% endblock %}

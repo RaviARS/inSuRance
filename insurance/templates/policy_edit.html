@@ -1,0 +1,182 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+
+      <div class="tab-pane" id="post-object-form" > <br>  <h3> Policy Details</h3><br><br>
+        <form action="" method="PUT" enctype="multipart/form-data" class="form-horizontal" >
+          <fieldset>
+<!--            <input type="hidden" name="csrfmiddlewaretoken" value="NnsScgrOIKLlFZqy2uenNUoPF4OUrWl59Ft0iWJ3iwfWJd4XLmdCClgEynweGZ55">-->
+            <div class="form-group ">
+              <label class="col-sm-2 control-label ">
+              Premium
+              </label>
+              <div class="col-sm-10">
+                <input name="Premium" id="premium" class="form-control" type="number"  >
+              </div>
+            </div>
+            <div class="form-group ">
+              <label class="col-sm-2 control-label ">
+              Customer id
+              </label>
+              <div class="col-sm-10">
+                <input name="Customer_id" id="Customer_id" class="form-control" type="number"  value="" >
+              </div>
+            </div>
+            <div class="form-group ">
+              <label class="col-sm-2 control-label ">
+              Policy id
+              </label>
+              <div class="col-sm-10">
+                <input name="Policy_id" id="Policy_id" class="form-control" type="number"  value="" >
+              </div>
+            </div>
+            <div class="form-group ">
+              <label class="col-sm-2 control-label ">
+              Date of purchase
+              </label>
+              <div class="col-sm-10">
+                <input name="Date_of_Purchase" id="Date_of_Purchase"   class="form-control" type="date"
+                       value="" >
+              </div>
+            </div>
+            <div class="form-group ">
+              <label class="col-sm-2 control-label ">
+              Fuel
+              </label>
+              <div class="col-sm-10">
+                <input name="Fuel" id="Fuel" class="form-control" type="text"  value="" >
+              </div>
+            </div>
+            <div class="form-group ">
+              <label class="col-sm-2 control-label ">
+              VEHICLE SEGMENT
+              </label>
+              <div class="col-sm-10">
+                <input name="VEHICLE_SEGMENT" id="VEHICLE_SEGMENT" class="form-control" type="text"  value="" >
+              </div>
+            </div>
+            <div class="form-group horizontal-checkbox ">
+              <label class="col-sm-2 control-label ">
+              Bodily injury liability
+              </label>
+              <div class="col-sm-10">
+                <input type="checkbox" id="bodily_injury_liability" name="bodily_injury_liability" value="true" >
+              </div>
+            </div>
+            <div class="form-group horizontal-checkbox ">
+              <label class="col-sm-2 control-label ">
+              Personal injury protection
+              </label>
+              <div class="col-sm-10">
+                <input type="checkbox" id="personal_injury_protection" name="personal_injury_protection" value="true" >
+              </div>
+            </div>
+            <div class="form-group horizontal-checkbox ">
+              <label class="col-sm-2 control-label ">
+              Property damage liability
+              </label>
+              <div class="col-sm-10">
+                <input type="checkbox" id="property_damage_liability" name="property_damage_liability" value="true" >
+              </div>
+            </div>
+            <div class="form-group horizontal-checkbox ">
+              <label class="col-sm-2 control-label ">
+              Collision
+              </label>
+              <div class="col-sm-10">
+                <input type="checkbox" name="collision" id="collision" value="true" >
+              </div>
+            </div>
+            <div class="form-group horizontal-checkbox ">
+              <label class="col-sm-2 control-label ">
+              Comprehensive
+              </label>
+              <div class="col-sm-10">
+                <input type="checkbox" name="comprehensive" id="comprehensive" value="true" >
+              </div>
+            </div>
+            <div class="form-group ">
+              <label class="col-sm-2 control-label ">
+              Customer Gender
+              </label>
+              <div class="col-sm-10">
+                <input name="Customer_Gender" id="Customer_Gender" class="form-control" type="text"  value="" >
+              </div>
+            </div>
+            <div class="form-group ">
+              <label class="col-sm-2 control-label ">
+              Customer Income group
+              </label>
+              <div class="col-sm-10">
+                <input name="Customer_Income_group" id="Customer_Income_group" class="form-control" type="text"  value="" >
+              </div>
+            </div>
+            <div class="form-group ">
+              <label class="col-sm-2 control-label ">
+              Customer Region
+              </label>
+              <div class="col-sm-10">
+                <input name="Customer_Region" id="Customer_Region"  class="form-control" type="text"  value="" >
+              </div>
+            </div>
+            <div class="form-group horizontal-checkbox ">
+              <label class="col-sm-2 control-label ">
+              Customer Marital status
+              </label>
+              <div class="col-sm-10">
+                <input type="checkbox"  id="Customer_Marital_status" name="Customer_Marital_status" value="true" >
+              </div>
+            </div>
+            <div class="form-actions">
+              <button class="btn btn-primary js-tooltip" title="Make a POST request on the Policy Add resource">SUbmit
+              </button>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+
+<script>
+
+
+$(document).ready(function(){
+
+<!-- $('#pedit').click(function(){-->
+        var jsonData = $('#searchForm').serialize();
+
+        var url = window.location.href;
+        var policy_id = url.split('?')[1].split('=');
+        policy_id.shift();
+        console.log(policy_id)
+
+        api_url =  "http://127.0.0.1:8000/api/v1/policys/"+policy_id;
+        $.ajax({
+           url: api_url,
+           type: "GET",
+            dataType: "json",
+            data: jsonData,
+            success: function(data) {
+                console.log(data)
+                $("#premium").val(data["Premium"]);
+                $("#Customer_id").val(data["Customer_id"]);
+                $("#Policy_id").val(data["Policy_id"]);
+                $("#Date_of_Purchase").val(data["Date_of_Purchase"]);
+                $("#Fuel").val(data["Fuel"]);
+                $("#VEHICLE_SEGMENT").val(data["VEHICLE_SEGMENT"]);
+                $("#bodily_injury_liability").val(data["bodily_injury_liability"]);
+                $("#personal_injury_protection").val(data["personal_injury_protection"]);
+                $("#property_damage_liability").val(data["property_damage_liability"]);
+                $("#collision").val(data["collision"]);
+                $("#comprehensive").val(data["comprehensive"]);
+                $("#Customer_Gender").val(data["Customer_Gender"]);
+                $("#Customer_Income_group").val(data["Customer_Income_group"]);
+                $("#Customer_Region").val(data["Customer_Region"]);
+                $("#Customer_Marital_status").val(data["Customer_Marital_status"]);
+            }
+        });
+<!--    });-->
+
+});
+</script>
+
+{% endblock %}
