@@ -30,16 +30,25 @@
     List of endpoints. 
     API:
     admin/
+    
     api/v1/policys/bulk_add/
+    
     api/v1/policys/
+    
     api/v1/policys/<int:id>/
+    
     api/v1/policy/search/?cid=&pid=12350
+    
     api/v1/policy/chart/
 
     UI : 
+    
     ui/policy-detail
+    
     ui/policy-chart 
+    
     ui/policy-add 
+    
     ui/policy-edit `
 
   Needs to be done:
